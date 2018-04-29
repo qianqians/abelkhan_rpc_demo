@@ -10,7 +10,7 @@
 
 int main()
 {
-	auto client_handle = std::make_shared<client::client>();
+	auto client_handle = std::make_shared<client::client>(123456);
 
 	client_handle->sigConnectGate.connect([client_handle]() {
 		client_handle->connect_hub("hub_server");

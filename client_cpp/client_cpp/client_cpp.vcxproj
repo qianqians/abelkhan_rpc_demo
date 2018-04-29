@@ -75,8 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <LibraryPath>C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\boost\stage\lib;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\client_lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\boost;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\client_head;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\proto\client_call_hub\c++\caller;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc\demo\proto\hub_call_client\c++\module;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\client_lib;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\boost\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\boost;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\client_head;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\proto\client_call_hub\c++\caller;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\proto\hub_call_client\c++\module;C:\Users\qianqians\Documents\workspace\abelkhan\abelkhan_rpc_demo\zlib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,7 +94,7 @@
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>client.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>client.lib;zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
