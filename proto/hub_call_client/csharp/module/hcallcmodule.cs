@@ -8,7 +8,7 @@ using common;
 
 namespace imp
 {
-    public class hcallc : common.imodule {
+    public class hcallc_module : common.imodule
     {
         public string module_name;
 
@@ -18,7 +18,7 @@ namespace imp
         {
             if (onhcallc == null)
             {
-                reutrn;
+                return;
             }
 
             var argv0 = ((String)_event[0]);
@@ -26,13 +26,13 @@ namespace imp
             onhcallc(argv0);
         }
 
-        public hcallc()
+        public hcallc_module(client.client _client)
         {
             module_name = "hcallc";
 
-            events["hcallc"] = hcallc;
+            reg_event("hcallc", hcallc);
 
-            hub::hub::modules.add_module("hcallc", this);
+            _client.modulemanager.add_module("hcallc", this);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.IO;
 
 namespace req
 {
-    public class cb_ccallh
+    public class cb_ccallh_func
     {
-        public delegate void ccallh_handle_cb();
+        public delegate void ccallh_handle_cb(String argv0);
         public event ccallh_handle_cb onccallh_cb;
         public void cb(String argv0)
         {
@@ -27,7 +27,7 @@ namespace req
             }
         }
 
-        void callBack(ccallh_handle_cb cb, ccallh_handle_err err)
+        public void callBack(ccallh_handle_cb cb, ccallh_handle_err err)
         {
             onccallh_cb += cb;
             onccallh_err += err;
@@ -43,22 +43,22 @@ namespace req
         public void ccallh_rsp(ArrayList _events)
         {
             string uuid = (string)_events[0];
-            var argv0 = (String)_events[0];
-            var rsp = (cb_ccallh)map_ccallh[uuid];
+            var argv0 = (String)_events[1];
+            var rsp = (cb_ccallh_func)map_ccallh[uuid];
             rsp.cb(argv0);
         }
 
         public void ccallh_err(ArrayList _events)
         {
             string uuid = (string)_events[0];
-            var rsp = (cb_ccallh)map_ccallh[uuid];
+            var rsp = (cb_ccallh_func)map_ccallh[uuid];
             rsp.err();
         }
 
         public cb_ccallh()
         {
-            events["ccallh_rsp"] = ccallh_rsp;
-            events["ccallh_err"] = ccallh_err;
+            reg_event("ccallh_rsp", ccallh_rsp);
+            reg_event("ccallh_err", ccallh_err);
         }
     }
 
@@ -76,7 +76,7 @@ namespace req
 
         public ccallh_hubproxy get_hub(string hub_name)
         {
-            return new ccallh_hubproxy(hub_name, client_handle);
+            return new ccallh_hubproxy(hub_name, client_handle, cb_ccallh_handle);
         }
 
     }
@@ -84,20 +84,22 @@ namespace req
     public class ccallh_hubproxy
     {
         public string hub_name;
+        public cb_ccallh cb_ccallh_handle;
         public client.client client_handle;
 
-        public ccallh_hubproxy(string _hub_name, client.client _client_handle)
+        public ccallh_hubproxy(string _hub_name, client.client _client_handle, cb_ccallh _cb_ccallh_handle)
         {
             hub_name = _hub_name;
             client_handle = _client_handle;
+            cb_ccallh_handle = _cb_ccallh_handle;
         }
 
-        cb_ccallh ccallh()
+        public cb_ccallh_func ccallh()
         {
             var uuid = System.Guid.NewGuid().ToString();
             client_handle.call_hub(hub_name, "ccallh", "ccallh", uuid);
 
-            var cb_ccallh_obj = new cb_ccallh();
+            var cb_ccallh_obj = new cb_ccallh_func();
             cb_ccallh_handle.map_ccallh.Add(uuid, cb_ccallh_obj);
 
             return cb_ccallh_obj;

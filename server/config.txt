@@ -28,7 +28,7 @@
 	"outside_port":3236,
         "key":123456,
 	"heartbeats":true,
-	"log_level":"debug",
+	"log_level":"release",
 	"log_file":"gate.txt",
 	"log_dir":"./log/"
     },
