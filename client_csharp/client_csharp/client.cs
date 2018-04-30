@@ -45,7 +45,7 @@ namespace client_csharp
                     hubs.Add(hub_name);
                     if (hubs.Contains("hub_server") && hubs.Contains("hub_server0"))
                     {
-                        _client.call_hub("hub_server", "ccallh", "ccallh");
+                        _client.call_hub("hub_server", "ccallh", "ccallh", System.Guid.NewGuid().ToString());
                     }
                 };
             }

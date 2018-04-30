@@ -12,7 +12,6 @@ function hcallc(hub_ptr){
     }
 }
 module.exports.hcallc = hcallc;
-
 module.exports.hcallc_cliproxy = hcallc_cliproxy;
 module.exports.hcallc_cliproxy_multi = hcallc_cliproxy_multi;
 module.exports.hcallc_broadcast = hcallc_broadcast;

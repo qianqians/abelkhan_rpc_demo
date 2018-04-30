@@ -5,7 +5,7 @@ using System.IO;
 
 namespace req
 {
-    public class cb_hcallh
+    public class cb_hcallh_func
     {
         public delegate void hcallh_handle_cb();
         public event hcallh_handle_cb onhcallh_cb;
@@ -27,7 +27,7 @@ namespace req
             }
         }
 
-        void callBack(hcallh_handle_cb cb, hcallh_handle_err err)
+        public void callBack(hcallh_handle_cb cb, hcallh_handle_err err)
         {
             onhcallh_cb += cb;
             onhcallh_err += err;
@@ -39,15 +39,15 @@ namespace req
     public class cb_hcallh : common.imodule
     {
         public Hashtable map_hcallh = new Hashtable();
-        public void hcallh_rsp(string uuid, )
+        public void hcallh_rsp(string uuid)
         {
-            var rsp = (cb_hcallh)map_hcallh[uuid];
+            var rsp = (cb_hcallh_func)map_hcallh[uuid];
             rsp.cb();
         }
 
-        public void hcallh_err(string uuid, )
+        public void hcallh_err(string uuid)
         {
-            var rsp = (cb_hcallh)map_hcallh[uuid];
+            var rsp = (cb_hcallh_func)map_hcallh[uuid];
             rsp.err();
         }
 
@@ -65,26 +65,28 @@ namespace req
 
         public hcallh_hubproxy get_hub(string hub_name)
         {
-            return new hcallh_hubproxy(hub_name);
+            return new hcallh_hubproxy(hub_name, cb_hcallh_handle);
         }
 
     }
 
     public class hcallh_hubproxy
     {
+        public cb_hcallh cb_hcallh_handle;
         public string hub_name;
 
-        public hcallh_hubproxy(string _hub_name)
+        public hcallh_hubproxy(string _hub_name, cb_hcallh _cb_hcallh_handle)
         {
+            cb_hcallh_handle = _cb_hcallh_handle;
             hub_name = _hub_name;
         }
 
-        cb_hcallh hcallh()
+        public cb_hcallh_func hcallh()
         {
             var uuid = System.Guid.NewGuid().ToString();
-            hub.hub.hubs.call_hub(hub_name, "hcallh", "hcallh", hub.hub.name, uuid,);
+            hub.hub.hubs.call_hub(hub_name, "hcallh", "hcallh", hub.hub.name, uuid);
 
-            var cb_hcallh_obj = new cb_hcallh();
+            var cb_hcallh_obj = new cb_hcallh_func();
             cb_hcallh_handle.map_hcallh.Add(uuid, cb_hcallh_obj);
 
             return cb_hcallh_obj;

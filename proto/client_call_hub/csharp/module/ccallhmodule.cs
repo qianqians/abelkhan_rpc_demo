@@ -17,21 +17,21 @@ namespace rsp
             uuid = _uuid;
         }
 
-        void call(String argv0)
+        public void call(String argv0)
         {
             hub.hub.gates.call_client(hub.hub.gates.current_client_uuid, "ccallh", "ccallh_rsp", uuid, argv0);
         }
-        void err()
+        public void err()
         {
             hub.hub.gates.call_client(hub.hub.gates.current_client_uuid, "ccallh", "ccallh_err", uuid);
         }
     }
 
-    public class ccallh : abelkhan.Module
+    public class ccallh_module : abelkhan.Module
     {
         public string module_name;
         public hub.hub hub_handle;
-        public ccallh(hub.hub _hub)
+        public ccallh_module(hub.hub _hub)
         {
             module_name = "ccallh";
             hub_handle = _hub;

@@ -13,17 +13,17 @@ namespace ntf
 
         public hcallc_cliproxy get_client(string uuid)
         {
-            return newhcallc_cliproxy(uuid);
+            return new hcallc_cliproxy(uuid);
         }
 
-        public hcallc_cliproxy_multi get_multicast(Arraylist uuids)
+        public hcallc_cliproxy_multi get_multicast(ArrayList uuids)
         {
-            return newhcallc_cliproxy_multi(uuids);
+            return new hcallc_cliproxy_multi(uuids);
         }
 
         public hcallc_broadcast get_broadcast()
         {
-            return newhcallc_broadcast(uuid);
+            return new hcallc_broadcast();
         }
 
     }
@@ -39,18 +39,16 @@ namespace ntf
 
         public void hcallc(String argv0)
         {
-            ArrayList _argv = new ArrayList();
-            _argv.Add(argv0);
-            hub.hub.gates.call_client(uuid, "hcallc", "hcallc", _argv);
+            hub.hub.gates.call_client(uuid, "hcallc", "hcallc", argv0);
         }
 
     }
 
     public class hcallc_cliproxy_multi
     {
-        private Arraylist uuids;
+        private ArrayList uuids;
 
-        public hcallc_cliproxy_multi(Arraylist _uuids)
+        public hcallc_cliproxy_multi(ArrayList _uuids)
         {
             uuids = _uuids;
         }
@@ -61,7 +59,6 @@ namespace ntf
     {
         public hcallc_broadcast()
         {
-            uuids = _uuids;
         }
 
     }
